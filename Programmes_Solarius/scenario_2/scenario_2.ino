@@ -3,12 +3,12 @@
 Servo rotationServo;
 Servo inclinaisonServo;
 
-#define rotationServoPin 9
-#define inclinaisonServoPin 10
-#define lumHautGauchePin A0
-#define lumHautDroitePin A1
-#define lumBasGauchePin A2
-#define lumBasDroitePin A3
+#define rotationServoPin 11
+#define inclinaisonServoPin 9
+#define lumHautGauchePin A2
+#define lumHautDroitePin A3
+#define lumBasGauchePin A0
+#define lumBasDroitePin A1
 
 int rotation = 0;
 int inclinaison = 0;
@@ -28,17 +28,17 @@ void setup() {
   inclinaisonServo.attach(inclinaisonServoPin);
 }
 void loop() {
-  lumHautGauche = analogRead(lumHautGauche);
-  lumHautDroite = analogRead(lumHautDroite);
-  lumBasGauche = analogRead(lumBasGauche);
-  lumBasDroite = analogRead(lumBasDroite);
+  lumHautGauche = analogRead(lumHautGauchePin);
+  lumHautDroite = analogRead(lumHautDroitePin);
+  lumBasGauche = analogRead(lumBasGauchePin);
+  lumBasDroite = analogRead(lumBasDroitePin);
 
   if (lumHautGauche > lumBasGauche
       || lumHautDroite > lumBasDroite)
-    ++inclinaison;
+    --inclinaison;
   else if (lumHautGauche < lumBasGauche
            || lumHautDroite < lumBasDroite)
-    --inclinaison;
+    ++inclinaison;
 
 
   if (lumHautGauche > lumHautDroite
@@ -52,5 +52,5 @@ void loop() {
   rotationServo.write(rotation);
   inclinaisonServo.write(inclinaison);
 
-  delay(500);
+  delay(50);
 }
