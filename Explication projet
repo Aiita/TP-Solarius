@@ -1,0 +1,26 @@
+Ce document va vous expliquer avec les différents points demandé le fonctionnement du projet.
+
+0. But du projet:
+Le projet à pour but d'optimiser la prise de soleil d'un panneau solaire soit, d'optimiser le puissance produite par le panneau solaire tout le long d'une journée. Pours se faire nous avons à notre disposition un robot que nous avons construit, un panneau solaire, 2 servomoteurs, 4 capteur de luminosité ainsi que 2 arduino-UNO.
+Nous avons relié les servomoteurs au robot et avons créé un code qui permet de capter l'angle qui permet d'avoir le plus de rayons du soleil en direction du panneau solaire, ceci est dû aux capteurs de lumière qui permettent de déterminer la position du soleil.
+Ainsi grâce au robot et au programme, nous avons un robot qui permet d'optimiser la puissance produite d'un panneau solaire
+
+I. Enregistrement de la data
+
+Pour enregistrer les données fournit par le panneau solaire nous utilisons un datalogger connecté à notre arduino et à notre circuit.
+Toutes les informations lu par le datalogger seront enregistré dans un fichier CSV qui sera dans une carte SD connecté au datalogger, le code qui permet le transfert des données envoyé par la production du panneau solaire et la reception du data logger est fournit sur mon github "Dataloggervf"
+
+II. Interprétation des données
+
+Pour se faire nous avons codé en Arduino et utilisé des arduino-UNO relié et connecté au robot construit. Les algorithmes utilisés sont à disposition sur mon github dans le dossier "Programme_Solarius"
+
+
+III. Ajustements
+
+Pour le fonctionnement du produit nous avons procédé à des tests pour ajuster au mieux nos programmes et pour pouvoir être sur du bon fonctionnement. 
+
+IV. Conclusion
+
+Ce projet m'a apporté énormément de compétences en arduino ainsi que dans la conception et la réalisation d'un robot, il m'a aussi permit de voir le fonctionnement d'un panneau solaire et d'en apprendre plus sur les différents types de panneaux solaires ce qui permet d'agrandir mon cercle de connaissance technique.
+
+Pour conclure, nous avons un robot fonctionnel qui permet d'optimiser la puissance produite par un panneau solaire tout au long d'une journée.
