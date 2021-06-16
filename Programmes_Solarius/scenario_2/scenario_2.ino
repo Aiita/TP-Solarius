@@ -1,56 +1,54 @@
 #include <Servo.h>
 
-Servo rotationServo;
-Servo inclinaisonServo;
-
-#define rotationServoPin 11
-#define inclinaisonServoPin 9
-#define lumHautGauchePin A2
-#define lumHautDroitePin A3
-#define lumBasGauchePin A0
-#define lumBasDroitePin A1
+Servo servoRotation;
+Servo servoInclinaison;
 
 int rotation = 0;
 int inclinaison = 0;
-int lumHautGauche = 0;
-int lumHautDroite = 0;
-int lumBasGauche = 0;
-int lumBasDroite = 0;
 
-void setup() {
-  
-  pinMode(lumHautGauchePin ,INPUT);
-  pinMode(lumHautDroitePin ,INPUT);
-  pinMode(lumBasGauchePin ,INPUT);
-  pinMode(lumBasDroitePin ,INPUT);
-  
-  rotationServo.attach(rotationServoPin);
-  inclinaisonServo.attach(inclinaisonServoPin);
+int moyenneLumHaut;
+int moyenneLumBas;
+int moyenneLumGauche;
+int moyenneLumDroite;
+
+unsigned long temps = 0;
+
+void setup()
+{
+  servoRotation.attach(11);
+  servoInclinaison.attach(9);
+
+
 }
 void loop() {
-  lumHautGauche = analogRead(lumHautGauchePin);
-  lumHautDroite = analogRead(lumHautDroitePin);
-  lumBasGauche = analogRead(lumBasGauchePin);
-  lumBasDroite = analogRead(lumBasDroitePin);
+  temps = millis() + 100;
+  while (temps > millis())
+  {
 
-  if (lumHautGauche > lumBasGauche
-      || lumHautDroite > lumBasDroite)
-    --inclinaison;
-  else if (lumHautGauche < lumBasGauche
-           || lumHautDroite < lumBasDroite)
-    ++inclinaison;
+    moyenneLumBas  = ( analogRead(A0) + analogRead(A1) ) / 2;
+    moyenneLumHaut     = ( analogRead(A2) + analogRead(A3) ) / 2;
+    moyenneLumGauche    = ( analogRead(A2) + analogRead(A0) ) / 2;
+    moyenneLumDroite   = ( analogRead(A3) + analogRead(A1) ) / 2;
 
+    inclinaison = servoInclinaison.read();
+    rotation = servoRotation.read();
 
-  if (lumHautGauche > lumHautDroite
-      || lumBasGauche > lumBasDroite)
-    ++rotation;
-  else if (lumHautGauche < lumHautDroite
-           || lumBasGauche < lumBasDroite)
-    --rotation;
+    if ((moyenneLumHaut > moyenneLumBas))
+      if (inclinaison > 0)
+        inclinaison = inclinaison - 1;
 
+    if ((moyenneLumBas > moyenneLumHaut))
+      if (inclinaison < 180)
+        inclinaison = inclinaison + 1;
 
-  rotationServo.write(rotation);
-  inclinaisonServo.write(inclinaison);
+    if ((moyenneLumDroite < moyenneLumGauche))
+      if (rotation > 0)
+        rotation = rotation - 1;
 
-  delay(50);
+    if ((moyenneLumGauche < moyenneLumDroite))
+      if (rotation < 180)
+        rotation = rotation + 1;
+  }
+  servoInclinaison.write(inclinaison);
+  servoRotation.write(rotation);
 }
